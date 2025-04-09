@@ -10,7 +10,11 @@ class Categories extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['categories_name'];
+    protected $fillable =[
+        'categories_name',
+        'image',
+        'description'
+    ];
 
     public function products()
     {

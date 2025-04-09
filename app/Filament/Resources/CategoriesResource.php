@@ -10,6 +10,8 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Symfony\Contracts\Service\Attribute\Required;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,7 +32,15 @@ class CategoriesResource extends Resource
                 TextInput::make('categories_name')
 
                     ->label('Category Name')
-                    ->required()
+                    ->required(),
+
+                FileUpload::make('image')
+                    ->columnSpanFull()
+                    ->required(),
+
+                TextInput::make('description')
+                    ->required(),
+
             ]);
     }
 
@@ -39,9 +49,13 @@ class CategoriesResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('categories_name')
-
                 ->searchable()
-                ->sortable()
+                ->sortable(),
+
+                ImageColumn::make('image')->label('Image')->circular(),
+
+                TextColumn::make('description')
+                
             ])
             ->filters([
                 //
