@@ -42,19 +42,21 @@ class ProductResource extends Resource
                     ->required(),
 
                 TextInput::make('name')
-                    ->label('Product Name')
+                    ->label('Nama Produk')
                     ->required(),
 
                 TextInput::make('stock')
+                    ->label('Stok')
                     ->required()
                     ->numeric(),
 
                 TextInput::make('price')
+                    ->label('Harga')
                     ->required()
                     ->numeric(),
 
                 TextInput::make('discount')
-                    ->label('discount (%)')
+                    ->label('Diskon (%)')
                     ->numeric()
                     ->suffix('%')
                     ->minValue(0)
@@ -63,11 +65,13 @@ class ProductResource extends Resource
 
 
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull()
                     ->nullable(),
 
 
                 FileUpload::make('image')
+                    ->label('Gambar')
                     ->columnSpanFull()
                     ->required()
             ]);
@@ -78,14 +82,18 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('categories.categories_name')
-                ->label('Nama Kategori'),
+                    ->label('Nama Kategori'),
 
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Nama Produk')
+                    ->searchable()
+                    ->shortable(),
 
-                TextColumn::make('stock'),
+                TextColumn::make('stock')
+                    ->label('Stok'),
 
-                TextColumn::make('price'),
+                TextColumn::make('price')
+                    ->label('Harga'),
             ])
             ->filters([
                 //

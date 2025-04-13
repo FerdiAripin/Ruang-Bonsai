@@ -24,6 +24,10 @@ class CategoriesResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = "Kategori Produk";
+    protected static ?string $modelLabel = "Kategori Produk";
+    protected static ?string $slug = "kategori-produk";
+
     public static function form(Form $form): Form
     {
         return $form
@@ -31,14 +35,16 @@ class CategoriesResource extends Resource
 
                 TextInput::make('categories_name')
 
-                    ->label('Category Name')
+                    ->label('Nama Kategori')
                     ->required(),
 
                 FileUpload::make('image')
+                    ->label('Gambar')
                     ->columnSpanFull()
                     ->required(),
 
                 TextInput::make('description')
+                    ->label('Deskripsi')
                     ->required(),
 
             ]);
@@ -49,13 +55,17 @@ class CategoriesResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('categories_name')
-                ->searchable()
-                ->sortable(),
+                    ->label('Nama Kategori')
+                    ->searchable()
+                    ->sortable(),
 
-                ImageColumn::make('image')->label('Image')->circular(),
+                ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->circular(),
 
                 TextColumn::make('description')
-                
+                    ->label('Deskripsi')
+
             ])
             ->filters([
                 //

@@ -26,13 +26,17 @@ class BlogsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
 
-    // protected static ?int $navigationSort = 999 ;
+
+    protected static ?string $navigationLabel = "Blog";
+    protected static ?string $modelLabel = "Blog";
+    protected static ?string $slug = "blog";
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('title')
+                    ->label('Judul')
                     ->required(),
 
                 TextInput::make('slug')
@@ -40,13 +44,16 @@ class BlogsResource extends Resource
                     ->unique(ignoreRecord: true),
 
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->required()
                     ->columnSpanFull(),
 
                 FileUpload::make('image')
+                    ->label('Gambar')
                     ->required(),
 
                 Hidden::make('user_id')
+                    ->label('Penulis')
                     ->default(auth()->id()),
             ]);
     }
@@ -55,10 +62,19 @@ class BlogsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->searchable()->label('Title'),
-                TextColumn::make('user.name')->label('Created'),
-                ImageColumn::make('image')->label('Image')->circular(),
-                TextColumn::make('created_at')->dateTime()->label('Created at'),
+                TextColumn::make('title')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Judul'),
+                TextColumn::make('user.name')
+                    ->searchable()
+                    ->label('Penulis'),
+                ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->circular(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->label('Ditulis pada'),
             ])
             ->filters([
                 //
