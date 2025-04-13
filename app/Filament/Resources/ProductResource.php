@@ -18,7 +18,7 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ProductResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-// use App\Filament\Resources\ProductResource\RelationManagersts\select;
+// use App\Fi   lament\Resources\ProductResource\RelationManagersts\select;
 
 
 class ProductResource extends Resource
@@ -27,11 +27,17 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
+    protected static ?string $navigationLabel = "Produk";
+    protected static ?string $modelLabel = "Produk";
+    protected static ?string $slug = "produk";
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Select::make('categories_id')
+                ->label('Kategori')
                     ->relationship('categories', 'categories_name')
                     ->required(),
 
@@ -71,7 +77,8 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('categories.categories_name'),
+                TextColumn::make('categories.categories_name')
+                ->label('Nama Kategori'),
 
                 TextColumn::make('name')
                     ->searchable(),
